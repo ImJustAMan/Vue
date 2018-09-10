@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="data.js"></script>
+	<script src="vue.js"></script>
+	<style>
+		.panel {
+			border: 1px solid #000;
+			width: 600px;
+		}
+		.title {
+			margin: 0;
+			padding: 10px;
+			background: #ccc;
+		}
+		p.vip {
+			color: red;
+		}
+		p.message {
+			color: #aaa;
+		}
+	</style>
+</head>
+<body>
+
+<div id="app">
+	<div v-for="item,n in data">
+		<div class="panel">
+			<h2
+				class="title"
+				@click="abc(status,n)"
+			>
+				{{item.name}}
+			</h2>
+			<div
+				class="listWrap"
+				v-for="i in item.list"
+				:style="{display: status[n]?'block':'none'}"
+			>
+				<ul>
+					<li>
+						<p :class="{vip: i.vip}">{{i.username}}</p>
+						<p class="message">{{i.message}}</p>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+</body>
+
+<script>
+
+	new Vue({
+		el: '#app',
+		data: {
+			data: dataList,
+			status: {
+				"0": true,
+				"1": false,
+				"2": false
+			}
+		},
+		methods: {
+			abc(a,n){
+				a[n] = !a[n];
+			}
+		}
+	})
+
+</script>
+
+</html>
